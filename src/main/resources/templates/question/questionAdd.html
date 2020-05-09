@@ -33,6 +33,7 @@
                             </div>
                             <div class="form-group">
                                 <select id="selectType"  class="form-control form-control-sm" name="questionType">
+                                    <label for="name">题目类型</label>
                                     <option th:each="quetype:${questionTypes}"  id="questionTypex" th:if="${quetype.getQuestionType()}=='x'" th:text="单选题" th:value="${quetype.getQuestionType()}"></option>
                                     <option th:each="quetype:${questionTypes}"  id="questionTypey" th:if="${quetype.getQuestionType()}=='y'" th:text="多选题" th:value="${quetype.getQuestionType()}"></option>
                                     <option th:each="quetype:${questionTypes}"  id="questionTypez" th:if="${quetype.getQuestionType()}=='z'" th:text="判断题" th:value="${quetype.getQuestionType()}"></option>
@@ -48,15 +49,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">选项B</label>
-                                <input type="text" class="form-control" id="opb" name="questionOpb">
+                                <input type="text" class="form-control" id="opb" name="questionOpb" placeholder="选项内容">
                             </div>
                             <div id="divc" class="form-group">
                                 <label for="name">选项C</label>
-                                <input type="text" class="form-control" id="opc" name="questionOpc">
+                                <input type="text" class="form-control" id="opc" name="questionOpc" placeholder="选项内容">
                             </div>
                             <div id="divd" class="form-group">
                                 <label for="name">选项D</label>
-                                <input type="text" class="form-control" id="opd" name="questionOpd">
+                                <input type="text" class="form-control" id="opd" name="questionOpd" placeholder="选项内容">
                             </div>
                             <div class="form-group">
                                 <label for="name">正确答案</label>

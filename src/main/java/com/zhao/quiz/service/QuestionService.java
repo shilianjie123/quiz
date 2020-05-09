@@ -34,4 +34,6 @@ public interface QuestionService {
     int queryIdByPapQue(Integer[] ques);
     //统计所有试题个数
     int queryCountAllQues();
+
+    List<Question> selectQueType();
 }

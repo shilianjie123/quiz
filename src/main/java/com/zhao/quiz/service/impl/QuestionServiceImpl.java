@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -70,7 +71,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public int AddAllQues(List<QuestionPaper> questionPapers) {
-        int nums=questionMapper.AddAllQues(questionPapers);
+        int nums = questionMapper.AddAllQues(questionPapers);
         return nums;
     }
 
@@ -82,6 +83,18 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public int queryCountAllQues() {
         return questionMapper.queryCountAllQues();
+    }
+
+    @Override
+    public List<Question> selectQueType() {
+        List<String> typeList = questionMapper.selectQueType();
+        List<Question> questionTypes = new ArrayList<>();
+        for (int i = 0; i < typeList.size(); i++) {
+            Question question = new Question();
+            question.setQuestionType(typeList.get(i));
+            questionTypes.add(question);
+        }
+        return questionTypes;
     }
 
 }

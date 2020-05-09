@@ -22,7 +22,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(loginHanderInterceptor).addPathPatterns("/**")
                 .excludePathPatterns("/index.html","/","/static","/asserts/**","/webjars/**")//排除样式、脚本、图片等资源文件
                 .excludePathPatterns("/")//排除登录页面
-//                .excludePathPatterns("/index")//排除登录页面
+                .excludePathPatterns("/index")//排除登录页面
                 .excludePathPatterns("/foreLogin")//排除登录操作
                 .excludePathPatterns("/backLogin")//排除登录操作
                 .excludePathPatterns("/backLogin/check")//排除登录操作

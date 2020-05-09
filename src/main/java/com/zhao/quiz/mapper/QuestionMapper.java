@@ -38,4 +38,6 @@ public interface QuestionMapper {
     int queryIdByPapQue(Integer[] ques);
     @Select("select count(*) from question")
     int queryCountAllQues();
+
+    List<String> selectQueType();
 }

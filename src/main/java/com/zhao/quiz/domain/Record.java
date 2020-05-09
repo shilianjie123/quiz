@@ -8,8 +8,11 @@ public class Record {
     private String recordName;
     private int studentId;
     private int paperId;
+    //答案
     private String recordAnswer;
+    //正确率
     private Double recordAcc;
+    //分数
     private int recordScore;
     private Student student;
 }

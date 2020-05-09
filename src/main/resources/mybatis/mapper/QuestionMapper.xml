@@ -107,4 +107,8 @@
 			#{arr}
 		</foreach>
 	</delete>
+
+	<select id="selectQueType" resultType="java.lang.String">
+			select que_type from question_type
+	</select>
 </mapper>
