@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>在线考试系统后台试题页面</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/css/ready.css" th:href="@{/assets/css/ready.css}">
+    <link rel="stylesheet" href="assets/css/demo.css" th:href="@{/assets/css/demo.css}">
+</head>
+<body>
+<div class="wrapper">
+    <!--header-->
+    <div th:replace="commons/bar::header"></div>
+
+    <!--slidebar-->
+    <div th:replace="commons/bar::#sidebar(activeUri='/question/getAllQuestion')"></div>
+
+    <!--main panel-->
+    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <h4 class="page-title">视频管理页面</h4>
+                <div class="col-md-6">
+                    <form th:action="@{/movie/addQuestion}" method="post">
+                        <div class="card">
+                            <div class="card-body">
+<!--                                <div class="form-group">-->
+<!--                                    <select class="form-control form-control-sm" name="questionCourse">-->
+<!--                                        <option th:each="quecou:${questionCourses}" th:text="${quecou.getQuestionCourse()}" th:value="${quecou.getQuestionCourse()}"></option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="form-group">-->
+<!--                                    <select id="selectType"  class="form-control form-control-sm" name="questionType">-->
+<!--                                        <label for="name">题目类型</label>-->
+<!--                                        <option th:each="quetype:${questionTypes}"  id="questionTypex" th:if="${quetype.getQuestionType()}=='x'" th:text="单选题" th:value="${quetype.getQuestionType()}"></option>-->
+<!--                                        <option th:each="quetype:${questionTypes}"  id="questionTypey" th:if="${quetype.getQuestionType()}=='y'" th:text="多选题" th:value="${quetype.getQuestionType()}"></option>-->
+<!--                                        <option th:each="quetype:${questionTypes}"  id="questionTypez" th:if="${quetype.getQuestionType()}=='z'" th:text="判断题" th:value="${quetype.getQuestionType()}"></option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+                                <div class="form-group">
+                                    <label for="name">试题知识</label>
+                                    <input type="text" class="form-control" id="name" name="queCourse" placeholder="试题知识">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name">视频</label>
+                                    <input type="file" id="fileInput" name="moviePath" placeholder="选项内容"/>
+<!--                                    <input type="text" class="form-control" id="movie" name="moviePath" placeholder="选项内容">-->
+                                </div>
+
+<!--                                <div class="form-group">-->
+<!--                                    <label for="name">正确答案</label>-->
+<!--                                    <input type="text" class="form-control" id="opright" name="questionOpright">-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <button class="btn btn-success" th:text="添加"></button>
+                            <button class="btn btn-danger">取消</button>
+                        </div>
+                    </form>
+                    <script>
+
+                        var fileInput = document.querySelector('#fileInput');
+                        fileInput.onchange = function () {
+                            var file = this.files[0];
+                            if (!/mp4\/\w+/.test(file.type)) {/*可以把autio改成其他文件类型 比如 image*/
+                                alert("只能选择视频文件")
+                                return false;
+                            }
+                            console.log(file.type)/*文件类型*/
+                            var reader = new FileReader();
+                            reader.readAsDataURL(file);
+                            reader.onload = function () {
+                                var audioBlob=convertBase64UrlToBlob(reader.result,file.type)
+                                /*request("audio",audioBlob)这里是我的ajax请求*/
+                            };
+                        };
+
+                        function convertBase64UrlToBlob(urlData,type){   /*转成二进制对象*/
+                            var bytes=window.atob(urlData.split(',')[1]);
+                            var ab = new ArrayBuffer(bytes.length);
+                            var ia = new Uint8Array(ab);
+                            for (var i = 0; i < bytes.length; i++) {
+                                ia[i] = bytes.charCodeAt(i);
+                            }
+                            return new Blob( [ab] , {type : type});
+
+                        }
+                        function request(type,Blob){
+
+                            var formData = new FormData();/*创建formData对象*/
+
+                            formData.append("cover_img", Blob);
+                            $.ajax({
+                                url:"",
+                                type:"POST",
+                                processData: false,
+                                contentType: false,
+                                data: formData,
+                                dataType: 'json',
+                                success: function (data) {
+
+                                }
+
+                            })
+
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--footer-->
+<div th:replace="commons/bar::footer"></div>
+<script src="assets/js/core/jquery.3.2.1.min.js" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+//显示密码
+<script>
+    $("#selectType").change(function () {
+        var type = $(this).children('option:selected').val();
+        if(type=="z"){
+            $("#divc").hide();
+            $("#divd").hide();
+        }
+        if(type=="x"){
+            $("#divc").hide();
+            $("#divd").hide();
+        }
+        return false;
+    })
+</script>
+
+
+</body>
+</html>

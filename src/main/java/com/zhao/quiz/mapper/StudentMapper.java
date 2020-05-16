@@ -27,4 +27,6 @@ public interface StudentMapper {
 
     @Delete("delete from student where student_id=#{id}")
     void deleteById(Integer id);
+
+    List<String> getStudentAccount();
 }

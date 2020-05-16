@@ -41,4 +41,5 @@ public interface PaperMapper {
     List<QuestionPaper> paperQueryALlQuestionByIdOrderByType(Integer id);
 
     List<QuestionPaper> paperQueryALlQuestionIDByPaperIdOrderByType(Integer paperId);
+
 }

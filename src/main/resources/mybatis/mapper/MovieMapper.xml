@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.quiz.mapper.MovieMapper">
+    <select id="getAllMovie" resultType="com.zhao.quiz.domain.Movie">
+		select movie_path as moviePath,que_course as queCourse,movie_id as movieId from que_movie
+	</select>
+
+    <insert id="addMovie" parameterType="com.zhao.quiz.domain.Movie">
+		insert into que_movie (movie_path,que_course)values (#{moviePath},#{queCourse})
+	</insert>
+
+	<select id="getQueCourse" resultType="java.lang.String">
+		select distinct que_course as queCourse from que_movie
+	</select>
+
+	<delete id="deleteMovieById">
+		delete from que_movie where movie_id = #{movieId}
+	</delete>
+
+	<update id="updateMovieById" parameterType="com.zhao.quiz.domain.Movie">
+		update que_movie set que_course =#{queCourse} where movie_id = #{movieId}
+	</update>
+
+	<select id="getMovieById" resultType="com.zhao.quiz.domain.Movie">
+		select * from que_movie where (movie_id) = #{id}
+	</select>
+</mapper>

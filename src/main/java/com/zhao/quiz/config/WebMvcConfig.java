@@ -28,6 +28,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/backLogin/check")//排除登录操作
                 .excludePathPatterns("/foreCheck/check")//排除登录操作
                 .excludePathPatterns("/prexam/toAddStudent")//排除注册页面
+                .excludePathPatterns("/student/sendRegisterNumber")//发送验证码
+                .excludePathPatterns("/exam/getExcel")//导出数据
                 .excludePathPatterns("/prexam/AddStudent");//排除注册页面
 //                .excludePathPatterns("/countdownPage");//排除倒计时页面
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"	xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,11 @@
     <!-- Bootstrap core CSS -->
     <link href="#" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet">
 </head>
+<script type="text/javascript">
+    function Back() {
+        window.location.href = "/foreLogin"
+    }
+</script>
 <body>
 <div class="container">
     <!--main panel-->
@@ -28,57 +33,182 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="name">姓名</label>
-                                            <input type="text" class="form-control" required name="studentName" id="name">
+                                            <input type="text" class="form-control" required name="studentName"
+                                                   id="name">
                                         </div>
                                         <div class="form-group">
                                             <label for="name">账号</label>
-                                            <input type="text" class="form-control" required name="studentAccount" id="account" placeholder="数字字母">
+                                            <input type="text" class="form-control" required name="studentAccount"
+                                                   id="account" placeholder="数字字母">
                                             <small id="accounthelp" class="form-text text-muted"></small>
                                         </div>
                                         <div class="form-check">
                                             <label>性别</label><br>
                                             <label class="form-radio-label">
-                                                <input class="form-radio-input" type="radio" name="studentGender" value="1">
+                                                <input class="form-radio-input" type="radio" name="studentGender"
+                                                       value="1">
                                                 <span class="form-radio-sign">男</span>
                                             </label>
                                             <label class="form-radio-label ml-3">
-                                                <input class="form-radio-input" type="radio" name="studentGender" value="0">
+                                                <input class="form-radio-input" type="radio" name="studentGender"
+                                                       value="0">
                                                 <span class="form-radio-sign">女</span>
                                             </label>
                                         </div>
                                         <div class="form-group">
                                             <label for="email">邮件</label>
-                                            <input type="email" class="form-control" required id="email" name="studentEmail" placeholder="Enter Email">
+                                            <input type="email" class="form-control" required id="email"
+                                                   name="studentEmail" placeholder="Enter Email">
                                             <small id="emailHelp" class="form-text text-muted"></small>
+                                        </div>
+                                        <input class="btn-dark" type="button" onclick="doSend()" value="获取验证码"/>
+                                        <div class="form-group">
+                                            <label for="number">验证码</label>
+                                            <input type="text" class="form-control" id="number" required autofocus
+                                                   name="registerNumber" placeholder="请输入发送的验证码">
                                         </div>
                                         <div class="form-group">
                                             <label for="password">密码</label>
-                                            <input type="password" class="form-control" required id="password" name="studentPwd" placeholder="Password">
+                                            <input type="password" class="form-control" required id="password"
+                                                   name="studentPwd" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <!--由数据库中查询出来-->
                                             <label>班级</label>
-                                            <select class="form-control" name="classeId">
-                                                <option th:each="cla:${allClasees}" th:text="${cla.classeName}" th:value="${cla.classeId}"></option>
+                                            <select class="form-control" name="classeId" id="classe">
+                                                <option th:each="cla:${allClasees}" th:text="${cla.classeName}"
+                                                        th:value="${cla.classeId}"></option>
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="card-action">
-                                        <button class="btn btn-success" type="submit">Submit</button>
+                                        <button class="btn btn-success" type="button" onclick="doRegister()">Submit
+                                        </button>
                                         <button class="btn btn-danger" type="reset">Cancel</button>
-                                        <button><a class="btn btn-sm btn-info" th:href="@{/foreLogin}">返回</a></button>
+                                        <button class="btn btn-info" type="button" onclick="Back();">Back</button>
+                                        <!--                                        <button class="btn btn-dark" type="button" onclick="doSend()" th:value="获取验证码"></button>-->
+                                        <!--                                        <a  style="width: 70px;height: 40px" class="btn btn-sm btn-info" th:href="@{/foreLogin}">Back</a>-->
                                     </div>
+                                    <script src="assets/js/core/jquery.3.2.1.min.js"
+                                            th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+                                    <script src="bootstrap/js/bootstrap.min.js"
+                                            th:src="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}"></script>
+                                    <script th:src="@{/webjars/layer/src/layer.js}"></script>
+                                    <script>
+                                        function doRegister() {
+                                            var number = $("#number").val();
+                                            var name = $("#name").val();
+                                            var account = $("#account").val();
+                                            var password = $("#password").val();
+                                            var email = $("#email").val();
+                                            if (number == "" || name == "" || account == "" || password == "" || email == "") {
+                                                layer.msg("属性不能为空！", {time: 2000, icon: 5, shift: 6}, function () {
+                                                });
+                                                return;
+                                            }
 
+                                            var loadingIndex;
+                                            $.post({
+                                                type: "POST",
+                                                url: "/prexam/AddStudent",
+                                                data: {
+                                                    "registerNumber": number,
+                                                    "studentName": name,
+                                                    "studentAccount": account,
+                                                    "studentGender": $("input[type='radio']:checked").val(),
+                                                    "studentEmail": email,
+                                                    "studentPwd": password,
+                                                    "classeId": $("#classe").val()
+                                                },
+                                                //加载图标
+                                                beforeSend: function () {
+                                                    loadingIndex = layer.msg('处理中', {icon: 16});
+                                                },
+                                                success: function (result) {
+                                                    console.log(result);
+                                                    layer.close(loadingIndex);
+                                                    if (result.success) {
+                                                        window.location.href = "foreLogin";
+                                                    } else {
+                                                        var flag = '${flag}';
+                                                        if(flag == 2){
+                                                            layer.msg("验证码不存在或输入错误！", {
+                                                                time: 2000,
+                                                                icon: 5,
+                                                                shift: 6
+                                                            }, function () {
+                                                            });
+                                                        } else{
+                                                            layer.msg("该用户已存在", {
+                                                                time: 2000,
+                                                                icon: 5,
+                                                                shift: 6
+                                                            }, function () {
+                                                            });
+                                                        }
+
+                                                    }
+                                                }
+                                            });
+                                            return false;
+                                        }
+                                    </script>
+
+                                    <script>
+                                        // var time = 60;
+                                        var doSend = function () {
+                                            var loadingIndex;
+                                            var email = $("#email").val();
+                                            if (email == "") {
+                                                layer.msg("邮箱不能为空！", {time: 2000, icon: 5, shift: 6}, function () {
+                                                });
+                                                return;
+                                            }
+                                            // 开始定时
+                                            $.post({
+                                                type: "POST",
+                                                url: "/student/sendRegisterNumber",
+                                                data: {
+                                                    "email": email
+                                                },
+                                                beforeSend: function () {
+                                                    loadingIndex = layer.msg('处理中', {icon: 16});
+                                                }
+                                            });
+                                        }
+                                        // function(data){
+                                        //     if(data){
+                                        //         times = setInterval("showTime();",1000);
+                                        //         setTimeout("stop();",60*1000);
+                                        //     }
+                                        // }
+                                        // function showTime()
+                                        // {
+                                        //     var but = $("input[type='button']");
+                                        //     but.attr("disabled",true);
+                                        //     but.val(""+time--+"秒后重新发送");
+                                        //
+                                        // }
+                                        // //停止计时
+                                        // function stop()
+                                        // {
+                                        //     clearInterval(times);
+                                        //     var but = $("input[type='button']");
+                                        //     but.val("获取验证码");
+                                        //     but.attr("disabled",false);
+                                        // }
+
+                                    </script>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-2"></div>
         </div>
-        <div class="col-md-2"></div>
     </div>
-</div>
 </div>
 </body>
 </html>

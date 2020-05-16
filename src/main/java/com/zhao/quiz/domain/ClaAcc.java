@@ -1,6 +1,8 @@
 package com.zhao.quiz.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Auther: swung
@@ -8,6 +10,8 @@ import lombok.Data;
  * @Description:及格率展示
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ClaAcc {
     private int clasaccId;
     private String examName;
@@ -16,14 +20,4 @@ public class ClaAcc {
     private int acscPer;
     private double acc;
 
-    public ClaAcc(String examName, String claName, int toscPer, int acscPer, double acc) {
-        this.examName = examName;
-        this.claName = claName;
-        this.toscPer = toscPer;
-        this.acscPer = acscPer;
-        this.acc = acc;
-    }
-
-    public ClaAcc() {
-    }
 }

@@ -105,6 +105,12 @@
                     <p>记录管理</p>
                 </a>
             </li>
+            <li class="nav-item" th:class="${activeUri=='/movie/getAllMovie'?'nav-item active':'nav-item'}">
+                <a class="nav-link" href="#" th:href="@{/movie/getAllMovie}">
+                    <i class="la  la-youtube-play"></i>
+                    <p>视频管理</p>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

@@ -34,7 +34,34 @@ spring:
     mode: HTML
     servlet:
       content-type: text/html
+
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+#    password: root
+    jedis:
+      pool:
+        max-active: 20
+        max-wait: -1
+        max-idle: 10
+        min-idle: 0
+        timeout: 5000
 #开发时让无缓存
+  mail:
+    host: smtp.qq.com
+    username: 965817262@qq.com
+    password: swomdsqplhpvbdjc
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+          starttls.required: true
+          ssl.enable: true
+          port: 465
+    port: 465
+    default-encoding: UTF-8
 
 mybatis:
   type-aliases-package: com.zhao.quiz.domain
@@ -47,3 +74,21 @@ pagehelper:
   support-methods-arguments: true
   params: count=countSql
 
+register:
+  subject: "线上答题小助手"
+  contentV1: "验证码有效时间为2分钟，请您注意把握时间，您的注册验证码为:"
+  contentV2: "您之前获取的验证码还未过期，所以本次不会获取新的验证码，请注意过期时间，您的注册码为："
+
+ftp:
+  host: 49.235.229.157
+  userName: ubuntu
+  password: Bc-1293465476.
+  port: 22
+  rootPath: /home/ubuntu/video_test
+  video:
+    url: http://49.235.229.157:80
+
+servlet:
+  multipart:
+    max-file-size: 50MB
+    max-request-size: 50MB

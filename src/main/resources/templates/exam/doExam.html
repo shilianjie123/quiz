@@ -37,7 +37,7 @@
 
 
     <div class="row">
-        <div id="timemchine" class="alert alert-success col-3 fixedNav fixed-top m-lg-4" role="alert" th:text="'现 在 时 间 :'+${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}+'----------------结 束 时 间 :'+${#dates.format(examById.examEnd, 'yyyy-MM-dd hh:mm:ss')}+'----------------温馨提示：错选漏选不得分，提交后不可再次答题,请在规定时间内提交试卷.'"></div>
+        <div id="timemchine" class="alert alert-success col-3 fixedNav fixed-top m-lg-4" role="alert" th:text="'现 在 时 间 :'+${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}+'------------------'+'结 束 时 间 :'+${#dates.format(examById.examEnd, 'yyyy-MM-dd hh:mm:ss')}+'-----------------'+'温馨提示：错选漏选不得分，提交后不可再次答题,请在规定时间内提交试卷.'"></div>
         <div class="col-md-3"></div>
         <form th:action="@{/exam/submitExam}" method="post">
             <div class="col-md-10 text-warning" th:text="'单选题:'+${questionPapers.get(0).paper.getScoreSin()}+'分/个；多选题:'+${questionPapers.get(0).paper.getScoreChe()}+'分/个；判断题:'+${questionPapers.get(0).paper.getScoreJug()}+'分/个'"></div>

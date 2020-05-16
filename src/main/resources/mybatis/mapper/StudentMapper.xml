@@ -44,4 +44,8 @@
 				student_email=#{studentEmail},student_pwd=#{studentPwd},classe_id=#{classeId}
 				where student_id=#{studentId}
 	</update>
+
+	<select id="getStudentAccount" resultType="java.lang.String">
+			select distinct student_account as suudentAccount from student
+	</select>
 </mapper>

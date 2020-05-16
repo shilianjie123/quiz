@@ -1,6 +1,7 @@
 package com.zhao.quiz.service;
 
 import com.zhao.quiz.domain.Student;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.List;
 
@@ -19,4 +20,10 @@ public interface StudentService {
     void EditStudent(Student student);
     //删除学生通过id
     void deleteById(Integer id);
+
+    void registerUser(String email);
+
+    RedisTemplate<String,String> getRt();
+
+    List<String> getStudentAccount();
 }

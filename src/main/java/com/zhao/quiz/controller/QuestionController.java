@@ -38,7 +38,7 @@ public class QuestionController {
         //查找所有题目课程和所有类型，且去重
         List<Question> questionCourses = questionService.queryAllCourse();
         questionCourses.add(new Question("bug", "all"));
-        List<Question> questionTypes = questionService.queryAllType();
+        List<Question> questionTypes = questionService.selectQueType();
         questionTypes.add(new Question("k", "bug"));
         String questionCourseBef = question.getQuestionCourse();
         String questionCourseresRes = "";
@@ -79,7 +79,7 @@ public class QuestionController {
     @RequestMapping("/toAddQuestion")
     public String toAddQuestion(Model model) {
         List<Question> questionCourses = questionService.queryAllCourse();
-        List<Question> questionTypes = questionService.queryAllType();
+        List<Question> questionTypes = questionService.selectQueType();
         model.addAttribute("questionTypes", questionTypes);
         model.addAttribute("questionCourses", questionCourses);
         return "question/questionAdd";
