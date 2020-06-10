@@ -15,4 +15,5 @@ public class Record {
     //分数
     private int recordScore;
     private Student student;
+    private String studentName;
 }

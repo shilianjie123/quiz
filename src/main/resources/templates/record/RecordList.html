@@ -32,6 +32,7 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">考试记录试卷</th>
+                                        <th scope="col">学生姓名</th>
                                         <th scope="col">答案</th>
                                         <th scope="col">正确率</th>
                                         <th scope="col">总得分</th>
@@ -42,6 +43,7 @@
                                     <tr th:each="rec,recStat:${records}">
                                         <td th:text="${recStat.count}"></td>
                                         <td th:text="${#strings.abbreviate(rec.recordName,10)}"></td>
+                                        <td th:text="${rec.studentName}"></td>
                                         <td th:text="${rec.recordAnswer}"></td>
                                         <td th:text="${rec.recordAcc}"></td>
                                         <td th:text="${rec.recordScore}"></td>

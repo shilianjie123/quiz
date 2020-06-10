@@ -63,6 +63,11 @@ spring:
     port: 465
     default-encoding: UTF-8
 
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
 mybatis:
   type-aliases-package: com.zhao.quiz.domain
   config-location: classpath:mybatis/mybatis-config.xml
@@ -87,8 +92,3 @@ ftp:
   rootPath: /home/ubuntu/video_test
   video:
     url: http://49.235.229.157:80
-
-servlet:
-  multipart:
-    max-file-size: 50MB
-    max-request-size: 50MB

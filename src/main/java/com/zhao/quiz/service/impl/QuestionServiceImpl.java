@@ -70,6 +70,11 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public List<Question> queryAllQueIdNotInPaperByIdIfAll(PapIdQuesCourse papIdQuesCourse) {
+        return questionMapper.queryAllQueIdNotInPaperByIdIfAll(papIdQuesCourse);
+    }
+
+    @Override
     public int AddAllQues(List<QuestionPaper> questionPapers) {
         int nums = questionMapper.AddAllQues(questionPapers);
         return nums;

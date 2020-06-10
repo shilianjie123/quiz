@@ -132,6 +132,12 @@
             <version>1.1.20</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.20</version>
+        </dependency>
+
         <!--layer-->
         <dependency>
             <groupId>org.webjars.bowergithub.sentsin</groupId>

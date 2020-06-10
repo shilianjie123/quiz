@@ -89,9 +89,6 @@
                             <div class="card-body">
                                 <div id="task-complete" class="chart-circle mt-4 mb-3"></div>
                             </div>
-                            <div class="card-footer">
-                                <div class="legend"><i class="la la-circle text-primary"></i>Mr.zhao 2020年1月22日</div>
-                            </div>
                         </div>
                     </div>
 
@@ -118,6 +115,7 @@
                                         <td th:text="${ScoreHStu.get(0).student.studentName}"></td>
                                         <td th:text="${ScoreHStu.get(0).recordName}"></td>
                                         <td th:text="${ScoreHStu.get(0).recordScore}"></td>
+                                        <td th:text="${AccHStu.get(0).recordAcc}"></td>
                                         <td>/</td>
                                     </tr>
                                     <tr>
@@ -125,22 +123,23 @@
                                         <td th:text="${ScoreHStu.get(1).student.studentName}"></td>
                                         <td th:text="${ScoreHStu.get(1).recordName}"></td>
                                         <td th:text="${ScoreHStu.get(1).recordScore}"></td>
-                                        <td>/</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td th:text="${AccHStu.get(0).student.studentName}"></td>
-                                        <td th:text="${AccHStu.get(0).recordName}"></td>
-                                        <td>/</td>
-                                        <td th:text="${AccHStu.get(0).recordAcc}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td th:text="${AccHStu.get(1).student.studentName}"></td>
-                                        <td th:text="${AccHStu.get(1).recordName}"></td>
-                                        <td>/</td>
                                         <td th:text="${AccHStu.get(1).recordAcc}"></td>
+                                        <td>/</td>
                                     </tr>
+<!--                                    <tr>-->
+<!--                                        <td>3</td>-->
+<!--                                        <td th:text="${AccHStu.get(0).student.studentName}"></td>-->
+<!--                                        <td th:text="${AccHStu.get(0).recordName}"></td>-->
+<!--                                        <td>/</td>-->
+<!--                                        <td th:text="${AccHStu.get(0).recordAcc}"></td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>4</td>-->
+<!--                                        <td th:text="${AccHStu.get(1).student.studentName}"></td>-->
+<!--                                        <td th:text="${AccHStu.get(1).recordName}"></td>-->
+<!--                                        <td>/</td>-->
+<!--                                        <td th:text="${AccHStu.get(1).recordAcc}"></td>-->
+<!--                                    </tr>-->
                                     </tbody>
                                 </table>
                             </div>

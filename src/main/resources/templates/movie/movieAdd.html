@@ -23,92 +23,33 @@
             <div class="container-fluid">
                 <h4 class="page-title">视频管理页面</h4>
                 <div class="col-md-6">
-                    <form th:action="@{/movie/addQuestion}" method="post">
+<!--                    <form id="formId" action="@{/movie/addQuestion}" method="post" enctype="multipart/form-data" class="form-horizontal ">-->
+<!--                        <label class="col-md-3 control-label">视频上传</label>-->
+<!--                        <div class="col-md-5">-->
+<!--                            <span style='color:blue;'>(支持'3gp','rmvb','flv','wmv','avi','mkv','mp4','mp3','wav'格式)</span>-->
+<!--                            <input type="file" class="file" name="file">-->
+<!--                        </div>-->
+                    <form th:action="@{/movie/addQuestion}" method="post" enctype="multipart/form-data" class="form-horizontal">
                         <div class="card">
                             <div class="card-body">
-<!--                                <div class="form-group">-->
-<!--                                    <select class="form-control form-control-sm" name="questionCourse">-->
-<!--                                        <option th:each="quecou:${questionCourses}" th:text="${quecou.getQuestionCourse()}" th:value="${quecou.getQuestionCourse()}"></option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                                <div class="form-group">-->
-<!--                                    <select id="selectType"  class="form-control form-control-sm" name="questionType">-->
-<!--                                        <label for="name">题目类型</label>-->
-<!--                                        <option th:each="quetype:${questionTypes}"  id="questionTypex" th:if="${quetype.getQuestionType()}=='x'" th:text="单选题" th:value="${quetype.getQuestionType()}"></option>-->
-<!--                                        <option th:each="quetype:${questionTypes}"  id="questionTypey" th:if="${quetype.getQuestionType()}=='y'" th:text="多选题" th:value="${quetype.getQuestionType()}"></option>-->
-<!--                                        <option th:each="quetype:${questionTypes}"  id="questionTypez" th:if="${quetype.getQuestionType()}=='z'" th:text="判断题" th:value="${quetype.getQuestionType()}"></option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
                                 <div class="form-group">
                                     <label for="name">试题知识</label>
                                     <input type="text" class="form-control" id="name" name="queCourse" placeholder="试题知识">
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="name">视频</label>
-                                    <input type="file" id="fileInput" name="moviePath" placeholder="选项内容"/>
-<!--                                    <input type="text" class="form-control" id="movie" name="moviePath" placeholder="选项内容">-->
+                                <div class="col-md-5">-->
+                                    <label for="name">视频</label>-->
+                                    <input type="file" class="file" name="file">
                                 </div>
-
-<!--                                <div class="form-group">-->
-<!--                                    <label for="name">正确答案</label>-->
-<!--                                    <input type="text" class="form-control" id="opright" name="questionOpright">-->
-<!--                                </div>-->
                             </div>
                         </div>
+
                         <div class="card-action">
                             <button class="btn btn-success" th:text="添加"></button>
                             <button class="btn btn-danger">取消</button>
                         </div>
                     </form>
-                    <script>
-
-                        var fileInput = document.querySelector('#fileInput');
-                        fileInput.onchange = function () {
-                            var file = this.files[0];
-                            if (!/mp4\/\w+/.test(file.type)) {/*可以把autio改成其他文件类型 比如 image*/
-                                alert("只能选择视频文件")
-                                return false;
-                            }
-                            console.log(file.type)/*文件类型*/
-                            var reader = new FileReader();
-                            reader.readAsDataURL(file);
-                            reader.onload = function () {
-                                var audioBlob=convertBase64UrlToBlob(reader.result,file.type)
-                                /*request("audio",audioBlob)这里是我的ajax请求*/
-                            };
-                        };
-
-                        function convertBase64UrlToBlob(urlData,type){   /*转成二进制对象*/
-                            var bytes=window.atob(urlData.split(',')[1]);
-                            var ab = new ArrayBuffer(bytes.length);
-                            var ia = new Uint8Array(ab);
-                            for (var i = 0; i < bytes.length; i++) {
-                                ia[i] = bytes.charCodeAt(i);
-                            }
-                            return new Blob( [ab] , {type : type});
-
-                        }
-                        function request(type,Blob){
-
-                            var formData = new FormData();/*创建formData对象*/
-
-                            formData.append("cover_img", Blob);
-                            $.ajax({
-                                url:"",
-                                type:"POST",
-                                processData: false,
-                                contentType: false,
-                                data: formData,
-                                dataType: 'json',
-                                success: function (data) {
-
-                                }
-
-                            })
-
-                        }
-                    </script>
+                </div>
                 </div>
             </div>
         </div>
@@ -118,7 +59,43 @@
 <!--footer-->
 <div th:replace="commons/bar::footer"></div>
 <script src="assets/js/core/jquery.3.2.1.min.js" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
-//显示密码
+<script src="../fileupload/jquery.ui.widget.js"></script>
+<script src="../fileupload/jquery.iframe-transport.js"></script>
+<script src="../fileupload/jquery.fileupload.js"></script>
+<script src="../fileupload/jquery.xdr-transport.js"></script>
+<script src="../fileupload/jquery.fileupload-process.js"></script>
+<script src="../fileupload/jquery.fileupload-validate.js"></script>
+<script>
+    //显示密码
+    $(".file").fileupload({
+    url : "/movie/save",
+    dataType : "json",
+    acceptFileTypes: /(\.|\/)(3gp|flv|rmvb|mp4|wmv|avi|mkv|mp3|wav)$/i,
+    maxFileSize: 500 * 1024 * 1024,
+    minFileSize: 5,
+    messages: {
+    maxFileSize: '文件上传的最大大小为 500MB',
+    acceptFileTypes: '此文件是不支持的视频格式'
+    },
+    formData : function (from) {
+      //当上传文件时需要传递其他参数时 可以通过以下方式进行赋值传递
+    return [{name : "deviceCode",value : $('input[name="deviceCode"]').val()},
+    {name : "type",value : $("select").val()}]
+    },
+    done : function(e, data){//当文件上传成功后调用这个回调函数
+    console.log(data)
+    },
+
+    processfail: function (e, data) { //根据的定义的校验规则进行文件检验
+    var currentFile = data.files[data.index];
+    if (data.files.error && currentFile.error) {
+    console.log(currentFile.error)
+    }
+    }
+    }
+    )
+</script>
+
 <script>
     $("#selectType").change(function () {
         var type = $(this).children('option:selected').val();

@@ -33,6 +33,8 @@ public interface QuestionMapper {
 
     List<Question> queryAllQueIdNotInPaperById(PapIdQuesCourse papid);
 
+    List<Question> queryAllQueIdNotInPaperByIdIfAll(PapIdQuesCourse papid);
+
     int AddAllQues(List<QuestionPaper> questionPapers);
 
     int queryIdByPapQue(Integer[] ques);

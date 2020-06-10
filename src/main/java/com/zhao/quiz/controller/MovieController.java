@@ -10,17 +10,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping("/movie")
 public class MovieController {
+
     @Autowired
     private MovieService movieService;
 
@@ -66,8 +71,9 @@ public class MovieController {
         return "redirect:/movie/getAllMovie";
     }
 
+    @ResponseBody
     @PostMapping("/upload")
-    public String pictureUpload(@RequestParam(value = "file") MultipartFile uploadFile) {
+    public String movieUpload(@RequestParam(value = "file") MultipartFile uploadFile) {
         long begin = System.currentTimeMillis();
         String json = "";
         try {
@@ -79,5 +85,26 @@ public class MovieController {
         long end = System.currentTimeMillis();
         log.info("任务结束，共耗时：[" + (end - begin) + "]毫秒");
         return json;
+    }
+
+    @RequestMapping("/save")
+    @ResponseBody
+    public String save(@RequestParam MultipartFile file, @RequestParam String queCourse, HttpServletRequest request) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
+        try {
+            String fileName = file.getOriginalFilename();
+            String extName = fileName.substring(fileName.lastIndexOf("."));
+            String newFileName = sdf.format(new Date()) + extName;
+            File newFile = new File(request.getSession().getServletContext().getRealPath("/Users/shilianjie/video_test"));
+            if (!newFile.exists()) newFile.mkdirs();
+            newFile = new File(newFile, newFileName);
+            OutputStream out = new FileOutputStream(newFile);
+            out.write(file.getBytes());
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/movie/getAllMovie";
     }
 }

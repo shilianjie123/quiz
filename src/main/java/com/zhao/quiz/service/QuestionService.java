@@ -28,6 +28,9 @@ public interface QuestionService {
     List<Map> queryNumOfQuestionType();
     //根据试卷id和课程查找尚未对应分配试题
     List<Question> queryAllQueIdNotInPaperById(PapIdQuesCourse papIdQuesCourse);
+
+    List<Question> queryAllQueIdNotInPaperByIdIfAll(PapIdQuesCourse papIdQuesCourse);
+
     //批量增加
     int AddAllQues(List<QuestionPaper> questionPapers);
     //批量删除

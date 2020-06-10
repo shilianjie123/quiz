@@ -31,6 +31,9 @@ public class RecordController {
     @RequestMapping("/getAllRecord")
     public String getAllRecord(Model model){
         List<Record> records=recordService.queryAll();
+        for(Record record : records){
+            record.setStudentName(record.getStudent().getStudentName());
+        }
         model.addAttribute("records",records);
         return "record/RecordList";
     }

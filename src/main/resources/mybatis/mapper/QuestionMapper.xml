@@ -61,6 +61,15 @@
 				select question_id from question_paper where paper_id = #{papid})
 	</select>
 
+	<!--根据试卷id和课程查找尚未对应分配试题-->
+	<select id="queryAllQueIdNotInPaperByIdIfAll" parameterType="com.zhao.quiz.domain.PapIdQuesCourse" resultType="com.zhao.quiz.domain.Question">
+		select
+			question_id
+				from question
+				where question_id not in (
+				select question_id from question_paper where paper_id = #{papid})
+	</select>
+
 	<!--添加试题-->
 	<insert id="addQuestion">
 		insert into
